@@ -1,6 +1,11 @@
 from flask import Flask, render_template
 
+from tarefas.models.database import init_db
+
 app = Flask(__name__)
+
+with app.app_context():
+    init_db()
 
 @app.route('/test')
 def test():
@@ -8,7 +13,7 @@ def test():
 
 @app.route('/')
 def home():
-    return render_template('base.html', titulo='Home')
+    return render_template('base.html', titulo='Minha lista')
 
 if __name__ == '__main__':
     app.run()
