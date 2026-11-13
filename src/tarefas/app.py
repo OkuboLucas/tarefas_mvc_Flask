@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, redirect, render_template, request, url_for
 
 from tarefas.models.database import init_db
+from tarefas.models.tarefa import Tarefa
 
 app = Flask(__name__)
 
@@ -11,9 +12,35 @@ with app.app_context():
 def test():
     return 'Servidor Online!'
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('base.html', titulo='Minha lista')
+
+    if request.method == 'POST':
+        titulo_form = request.form['tituloTarefa'] # Casa com o nome do input no form
+        data_conclusao_form = request.form['dataConclusao']
+
+        data_corrigida = data_conclusao_form or None
+
+        # Instanciamos uma nova tarefa com os dados recebidos do form
+        tarefa = Tarefa(titulo=titulo_form, data_conclusao=data_corrigida)
+
+        # Salvamos a tarefa no banco
+        tarefa.salvarTarefa()
+
+        return redirect(url_for('home'))
+
+    tarefas= Tarefa.listarTarefas()
+
+    return render_template(
+        'base.html',
+        titulo_da_pagina='Minha lista', 
+        tarefas_da_pagina=tarefas
+    )
+
+@app.route('/delete/<int:id_tarefa>')
+def apagar_id_especificado(id_tarefa):
+    Tarefa.apagarTarefas(id_tarefa)
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run()

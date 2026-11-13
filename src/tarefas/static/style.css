@@ -1,269 +1,265 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
+:root {
+    color-scheme: dark;
+    --background: #080d17;
+    --surface: #101927;
+    --surface-raised: #141f30;
+    --text: #edf2fa;
+    --secondary: #99a7ba;
+    --border: rgba(159, 181, 207, 0.18);
+    --accent: #76c9f3;
+    --accent-strong: #9cddff;
+    --accent-blue: #748cf5;
+    --danger: #f08b91;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
 }
 
-:root {
-    --azul: #6495ed;
-    --azul-profundo: #07152f;
-    --ciano: #4ef5ff;
-    --amarelo: #fff710;
-    --vidro: rgba(10, 28, 62, 0.72);
+* {
+    box-sizing: border-box;
 }
 
 body {
+    position: relative;
+    isolation: isolate;
+    width: min(680px, calc(100% - 36px));
     min-height: 100vh;
-    display: grid;
-    place-items: center;
-    overflow-x: hidden;
-    padding: 24px;
-    color: #ffffff;
-    background:
-        radial-gradient(circle at 15% 20%, rgba(78, 245, 255, 0.24), transparent 28%),
-        radial-gradient(circle at 85% 80%, rgba(100, 149, 237, 0.30), transparent 30%),
-        linear-gradient(145deg, #020817, var(--azul-profundo));
-    font-family: "Segoe UI", sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+    margin: 0 auto;
+    padding: 72px 0;
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* Efeito de grade futurista */
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: -2;
-    background-image:
-        linear-gradient(rgba(78, 245, 255, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(78, 245, 255, 0.055) 1px, transparent 1px);
-    background-size: 38px 38px;
-    mask-image: linear-gradient(to bottom, black, transparent 90%);
-}
-
-/* Shader/luz atmosférica feita apenas com CSS */
-body::after {
-    content: "";
-    position: fixed;
     z-index: -1;
-    width: 420px;
-    height: 420px;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(78, 245, 255, 0.18),
-        rgba(100, 149, 237, 0.08) 35%,
-        transparent 68%
-    );
-    filter: blur(24px);
-    animation: shader 8s ease-in-out infinite alternate;
-}
-
-#card-text {
-    position: relative;
-    width: min(780px, 100%);
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 16px;
-    overflow: hidden;
-    padding: clamp(28px, 7vw, 72px);
-    border: 1px solid rgba(78, 245, 255, 0.5);
-    border-radius: 28px;
-    background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.075), transparent 45%),
-        var(--vidro);
-    box-shadow:
-        0 30px 90px rgba(0, 0, 0, 0.55),
-        inset 0 0 30px rgba(78, 245, 255, 0.07),
-        0 0 30px rgba(78, 245, 255, 0.10);
-    backdrop-filter: blur(24px) saturate(140%);
-}
-
-#card-text::before {
-    content: "";
-    position: absolute;
-    inset: 0;
     pointer-events: none;
-    background: linear-gradient(
-        115deg,
-        transparent 35%,
-        rgba(255, 255, 255, 0.10),
-        transparent 58%
-    );
-    transform: translateX(-100%);
-    animation: brilho 6s ease-in-out infinite;
+    background:
+        linear-gradient(rgba(154, 183, 219, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(154, 183, 219, 0.035) 1px, transparent 1px),
+        radial-gradient(ellipse at 12% 8%, rgba(80, 148, 198, 0.2), transparent 34%),
+        radial-gradient(ellipse at 94% 88%, rgba(105, 111, 205, 0.15), transparent 34%),
+        var(--background);
+    background-size: 40px 40px, 40px 40px, auto, auto, auto;
 }
 
 h1 {
     position: relative;
-    color: var(--amarelo);
-    font-size: clamp(48px, 10vw, 96px);
-    font-weight: 900;
-    letter-spacing: clamp(4px, 1vw, 12px);
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: clamp(44px, 8vw, 64px);
+    font-weight: 680;
+    letter-spacing: -0.06em;
     line-height: 1;
-    text-align: center;
-    text-shadow:
-        0 0 8px rgba(255, 247, 16, 0.75),
-        0 0 28px rgba(255, 247, 16, 0.34),
-        5px 5px 0 #234d98;
+}
+
+h1::before {
+    content: "PERSONAL WORKSPACE";
+    display: block;
+    margin-bottom: 15px;
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+h1::after {
+    content: "Clareza para o que vem a seguir.";
+    display: block;
+    margin-top: 12px;
+    color: var(--secondary);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.5;
+}
+
+form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(160px, 0.58fr);
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(20, 31, 48, 0.92), rgba(13, 23, 36, 0.96));
+    box-shadow: var(--shadow), inset 0 1px rgba(255, 255, 255, 0.035);
 }
 
 input {
     width: 100%;
-    height: 54px;
-    padding: 0 18px;
-    border: 1px solid rgba(78, 245, 255, 0.48);
-    border-radius: 12px;
+    min-width: 0;
+    min-height: 50px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
     outline: none;
-    background:
-        linear-gradient(rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
-    color: #ffffff;
-    font-size: 16px;
-    box-shadow:
-        inset 0 0 18px rgba(78, 245, 255, 0.025);
-    transition: 0.22s ease;
+    background: rgba(5, 13, 23, 0.62);
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+input::placeholder {
+    color: #8493a8;
+}
+
+input:hover {
+    border-color: rgba(118, 201, 243, 0.38);
 }
 
 input:focus {
-    border-color: var(--ciano);
-    box-shadow:
-        0 0 0 4px rgba(78, 245, 255, 0.09),
-        0 0 24px rgba(78, 245, 255, 0.16),
-        inset 0 0 18px rgba(78, 245, 255, 0.05);
+    border-color: var(--accent);
+    background: rgba(7, 17, 29, 0.9);
+    box-shadow: 0 0 0 3px rgba(118, 201, 243, 0.12), 0 0 20px rgba(118, 201, 243, 0.08);
 }
 
 input[type="date"] {
     color-scheme: dark;
 }
 
-button {
-    min-height: 44px;
-    border: 1px solid rgba(255, 247, 16, 0.85);
-    border-radius: 10px;
-    background:
-        linear-gradient(135deg, var(--amarelo), #ffbd2e);
-    color: #10204a;
-    font-weight: 900;
-    letter-spacing: 0.5px;
+form button {
+    grid-column: 1 / -1;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid rgba(156, 221, 255, 0.55);
+    border-radius: 11px;
+    background: linear-gradient(105deg, #70c4ee, #7896f4);
+    color: #081522;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
     cursor: pointer;
-    box-shadow:
-        0 8px 24px rgba(255, 247, 16, 0.16),
-        inset 0 1px rgba(255, 255, 255, 0.55);
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        filter 0.2s ease;
+    box-shadow: 0 6px 18px rgba(83, 151, 221, 0.2), inset 0 1px rgba(255, 255, 255, 0.42);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 
-#card-text > button {
-    width: 100%;
-    height: 54px;
-    font-size: 17px;
+form button::before {
+    content: "+";
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1;
 }
 
-button:hover {
-    filter: brightness(1.07);
-    transform: translateY(-3px);
-    box-shadow:
-        0 12px 28px rgba(255, 247, 16, 0.28),
-        0 0 18px rgba(255, 247, 16, 0.18);
+form button:hover {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+    box-shadow: 0 9px 24px rgba(83, 151, 221, 0.28), inset 0 1px rgba(255, 255, 255, 0.52);
 }
 
-button:active {
-    transform: translateY(0) scale(0.97);
+form button:active {
+    transform: translateY(0);
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--accent-strong);
+    outline-offset: 3px;
 }
 
 #listaTarefas {
-    width: 100%;
-    display: block;
-    color: #ffffff;
+    min-height: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: rgba(13, 23, 36, 0.82);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
 }
 
-#listaTarefas > div {
+#listaTarefas:empty::before {
+    content: "Sua lista está pronta para começar.";
+    display: grid;
+    min-height: 56px;
+    place-items: center;
+    color: var(--secondary);
+    font-size: 13px;
+    text-align: center;
+}
+
+#listaTarefas > li {
+    min-width: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    margin-top: 12px;
-    padding: 16px 16px 16px 20px;
-    border: 1px solid rgba(78, 245, 255, 0.18);
-    border-left: 4px solid var(--ciano);
-    border-radius: 14px;
-    background:
-        linear-gradient(90deg, rgba(78, 245, 255, 0.09), transparent),
-        rgba(255, 255, 255, 0.035);
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.18),
-        inset 0 1px rgba(255, 255, 255, 0.035);
-    animation: aparecer 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+    gap: 14px;
+    padding: 13px 14px;
+    border: 1px solid rgba(159, 181, 207, 0.14);
+    border-left: 2px solid var(--accent);
+    border-radius: 10px;
+    background: linear-gradient(105deg, rgba(118, 201, 243, 0.075), rgba(17, 29, 44, 0.72) 58%);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+    transition: border-color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
 }
 
-#listaTarefas button {
+#listaTarefas > li:hover {
+    border-left-color: var(--accent-strong);
+    background-color: rgba(118, 201, 243, 0.055);
+    transform: translateX(2px);
+}
+
+#listaTarefas a {
     flex-shrink: 0;
-    min-width: 116px;
-    border-color: rgba(78, 245, 255, 0.5);
-    background: transparent;
-    color: var(--ciano);
-    box-shadow: none;
+    margin-left: auto;
+    padding: 7px 10px;
+    border: 1px solid rgba(240, 139, 145, 0.24);
+    border-radius: 8px;
+    background: rgba(240, 139, 145, 0.06);
+    color: var(--danger);
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.18s ease, background-color 0.18s ease;
 }
 
-#listaTarefas button:hover {
-    background: var(--ciano);
-    color: #07152f;
-    box-shadow: 0 0 18px rgba(78, 245, 255, 0.28);
+#listaTarefas a:hover {
+    border-color: rgba(240, 139, 145, 0.45);
+    background: rgba(240, 139, 145, 0.13);
 }
 
-@keyframes aparecer {
-    from {
-        opacity: 0;
-        transform: translateY(-16px) scale(0.97);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes brilho {
-    0%,
-    30% {
-        transform: translateX(-100%);
-    }
-
-    70%,
-    100% {
-        transform: translateX(100%);
-    }
-}
-
-@keyframes shader {
-    from {
-        transform: translate(-45vw, -20vh) scale(0.8);
-    }
-
-    to {
-        transform: translate(45vw, 30vh) scale(1.25);
-    }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 560px) {
     body {
-        padding: 12px;
-    }
-
-    #card-text {
-        padding: 28px 16px;
+        width: min(calc(100% - 28px), 480px);
+        justify-content: flex-start;
+        gap: 14px;
+        padding: 64px 0 30px;
     }
 
     h1 {
-        letter-spacing: 4px;
+        font-size: clamp(42px, 12vw, 56px);
     }
 
-    #listaTarefas > div {
-        align-items: stretch;
-        flex-direction: column;
+    form {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+        padding: 12px;
     }
 
-    #listaTarefas button {
-        width: 100%;
+    form button {
+        grid-column: auto;
+    }
+
+    #listaTarefas {
+        padding: 10px;
+    }
+
+    #listaTarefas > li {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 9px;
     }
 }
 
@@ -271,7 +267,8 @@ button:active {
     *,
     *::before,
     *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
     }
 }

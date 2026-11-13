@@ -111,15 +111,12 @@ def init_db(sql_filepath=SQL_PATH):
         print('O arquivo especificado não pôde ser encontrado.')
         
         
-
-
-
 # Área 51
         """
         Tudo o que for escrito dessa área
         será lido e executado como string.
-        """
-"""db = Database()
+    
+db = Database()
 db.conectar()
 print(db.executar('SELECT * FROM tipos_combustivel;'))
 db.desconectar()
