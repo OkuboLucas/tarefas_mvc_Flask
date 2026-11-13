@@ -41,6 +41,12 @@ class Tarefa:
         with Database() as db:
             db.executar(sql, params)
 
+    def editarTarefas(self):
+        sql = 'UPDATE tarefa SET titulo_tarefa = %s, data_conclusao = %s WHERE id_tarefa = %s; '  
+        params = (self.titulo, self.data_conclusao, self.id)
+
+        with Database() as db:
+            return(db.executar(sql, params))
 
 # Área 51 (testes)
 # tarefa = Tarefa('Minha nova tarefa')

@@ -272,3 +272,38 @@ a:focus-visible {
         animation-duration: 0.01ms !important;
     }
 }
+.botao-voltar {
+    grid-column: 1 / -1;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 13px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.045);
+    color: var(--secondary);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+                color 0.2s ease, transform 0.2s ease;
+}
+
+.botao-voltar__icone {
+    color: var(--accent);
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.botao-voltar:hover {
+    border-color: rgba(118, 201, 243, 0.28);
+    background: rgba(118, 201, 243, 0.08);
+    color: var(--text);
+}
+
+.botao-voltar:hover .botao-voltar__icone {
+    transform: translateX(-3px);
+}

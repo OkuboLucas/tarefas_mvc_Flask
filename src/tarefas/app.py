@@ -34,7 +34,9 @@ def home():
     return render_template(
         'base.html',
         titulo_da_pagina='Minha lista', 
-        tarefas_da_pagina=tarefas
+        tarefas_da_pagina=tarefas,
+        button_submit="Adicionar",
+        botao_voltar="display: none",
     )
 
 @app.route('/delete/<int:id_tarefa>')
@@ -42,5 +44,32 @@ def apagar_id_especificado(id_tarefa):
     Tarefa.apagarTarefas(id_tarefa)
     return redirect(url_for('home'))
 
+@app.route('/edit/<int:id_tarefa>', methods=['GET', 'POST']) 
+def editar_id_especificado(id_tarefa):
+
+    if request.method == 'POST':
+        titulo_form = request.form['tituloTarefa']
+        data_conclusao_form = request.form['dataConclusao']
+
+        data_corrigida = data_conclusao_form or None
+
+        tarefa = Tarefa(
+            titulo=titulo_form,
+            id=id_tarefa,
+            data_conclusao=data_corrigida
+        )
+
+        tarefa.editarTarefas()
+
+        return redirect(url_for('home'))
+    return render_template(
+        "base.html",
+        titulo_da_pagina="Minha lista de tarefas",
+        tarefas_da_pagina={"titulo_tarefa:": None, "data_conclusao": None},
+        button_submit="Atualizar",
+        james_baxter="display: none",
+
+    )
 if __name__ == '__main__':
+
     app.run()
