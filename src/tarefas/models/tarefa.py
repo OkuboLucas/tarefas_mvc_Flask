@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from tarefas.models.database import Database
 
 
@@ -15,11 +17,9 @@ class Tarefa:
         """Salvar a tarefa no banco de dados."""
 
         sql = 'INSERT INTO tarefa (titulo_tarefa, data_conclusao) VALUES (%s, %s);'
-        params = (self.titulo, self.data_conclusao) # Protege contra SQL Injection
+        params = (self.titulo, self.data_conclusao)
 
 
-        # Gerenciador de contexto (with)
-        # Acessa os métodos __enter__ e __exit__ da classe
         with Database() as db:
             db.executar(sql, params)
 
@@ -41,13 +41,35 @@ class Tarefa:
         with Database() as db:
             db.executar(sql, params)
 
+    @staticmethod
+    def carregar_tarefa(id_tarefa):
+        sql = '''SELECT id_tarefa, titulo_tarefa, data_conclusao FROM tarefa
+        WHERE id_tarefa = %s;'''
+        params = (id_tarefa,)
+
+        with Database() as db:
+            resultado = db.executar(sql, params)
+
+        if resultado:
+            tarefa_selecionada = resultado[0]
+            
+            data_formatada = (
+                tarefa_selecionada['data_conclusao'].strftime('%Y-%m-%d')
+                if isinstance(tarefa_selecionada['data_conclusao'], datetime)
+                else tarefa_selecionada['data_conclusao']
+            )
+
+            return Tarefa(
+                id=tarefa_selecionada['id_tarefa'],
+                titulo=tarefa_selecionada['titulo_tarefa'],
+                data_conclusao=data_formatada
+            )
+        return None
+
     def editarTarefas(self):
-        sql = 'UPDATE tarefa SET titulo_tarefa = %s, data_conclusao = %s WHERE id_tarefa = %s; '  
+        sql = '''UPDATE tarefa SET titulo_tarefa = %s,
+        data_conclusao = %s WHERE id_tarefa = %s; '''  
         params = (self.titulo, self.data_conclusao, self.id)
 
         with Database() as db:
             return(db.executar(sql, params))
-
-# Área 51 (testes)
-# tarefa = Tarefa('Minha nova tarefa')
-# tarefa.salvarTarefa()
